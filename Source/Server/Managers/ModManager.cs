@@ -16,7 +16,8 @@ namespace GameServer
             {
                 try
                 {
-                    string aboutFile = Directory.GetFiles(modPath, "About.xml", SearchOption.AllDirectories)[0];
+                    string aboutFile = Directory.GetFiles(modPath, "*.*", SearchOption.AllDirectories)
+                                                .First(file => string.Equals(Path.GetFileName(file), "About.xml", StringComparison.OrdinalIgnoreCase));
                     foreach (string str in XmlParser.ParseDataFromXML(aboutFile, "packageId"))
                     {
                         if (!Program.loadedRequiredMods.Contains(str.ToLower())) Program.loadedRequiredMods.Add(str.ToLower());
